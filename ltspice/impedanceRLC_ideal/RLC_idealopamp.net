@@ -1,0 +1,33 @@
+* C:\Users\pavel\OneDrive\Desktop\RLC metr\RLC_idealopamp.asc
+V1 N002 0 SINE(0 1.6 50k)
+R1 Lout Lt2 {Rg1}
+XU1 N002 N001 5v -5v N001 level1 Avol=1Meg GBW=10Meg Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XU2 0 Lt2 5v -5v Lout level1 Avol=1Meg GBW=10Meg Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+V2 5v 0 5
+V3 -5v 0 -5
+R2 Cout Ct2 {Rg2}
+XU3 0 Ct2 5v -5v Cout level1 Avol=1Meg GBW=10Meg Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+C2 Ct2 Ct1 {Ctest} Rser=0.1 Lser=0.1p
+I1 0 0 ac
+L2 Lt2 Lt1 {Ltest} Ipk=5 Rser=15.1m Cpar=0.5p
+R3 Lt1 N001 {Rg1}
+R4 Ct1 N001 {Rg2}
+R5 Rout Rt2 {Rg3}
+XU4 0 Rt2 5v -5v Rout level1 Avol=1Meg GBW=10Meg Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R6 Rt1 N001 {Rg3}
+R7 Rt2 Rt1 {Rtest}
+XU5 N004 N003 5v -5v Diff level1 Avol=1Meg GBW=10Meg Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R8 N003 Rt1 400
+R9 N004 Rt2 400
+R10 Diff N003 400
+.tran 0 0.001 0.0001
+;ac dec 0.01 5 5000000000
+.param Rg1 100
+.param Rg2 100
+.param Rg3 100
+.step param Ltest 100u 500u 100u
+.param Ctest {Ltest/10e3}
+.param Rtest {Ltest*10e5}
+.lib UniversalOpAmp1.lib
+.backanno
+.end
